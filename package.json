@@ -1,9 +1,46 @@
 {
-  "name": "yoga-repo",
-  "version": "0.0.0",
-  "private": true,
-  "workspaces": [
-    "javascript",
-    "website-next"
+  "name": "yoga-layout",
+  "version": "2.0.1-patched",
+  "description": "An embeddable and performant flexbox layout engine with bindings for multiple languages",
+  "license": "MIT",
+  "author": "Meta Open Source",
+  "exports": {
+    ".": {
+      "browser": "./src/entrypoint/wasm-async-web.js",
+      "node": "./src/entrypoint/wasm-async-node.js",
+      "default": "./src/entrypoint/asmjs-async-web.js"
+    },
+    "./sync": {
+      "browser": "./src/entrypoint/asmjs-sync-web.js",
+      "node": "./src/entrypoint/wasm-sync-node.js",
+      "default": "./src/entrypoint/asmjs-sync-web.js"
+    },
+    "./asmjs-async": {
+      "browser": "./src/entrypoint/asmjs-async-web.js",
+      "node": "./src/entrypoint/asmjs-async-node.js",
+      "default": "./src/entrypoint/asmjs-async-web.js"
+    },
+    "./asmjs-sync": {
+      "browser": "./src/entrypoint/asmjs-sync-web.js",
+      "node": "./src/entrypoint/asmjs-sync-node.js",
+      "default": "./src/entrypoint/asmjs-sync-web.js"
+    },
+    "./wasm-async": {
+      "browser": "./src/entrypoint/wasm-async-web.js",
+      "node": "./src/entrypoint/wasm-async-node.js",
+      "default": "./src/entrypoint/wasm-async-web.js"
+    },
+    "./wasm-sync": {
+      "browser": "./src/entrypoint/wasm-sync-web.js",
+      "node": "./src/entrypoint/wasm-sync-node.js",
+      "default": "./src/entrypoint/wasm-sync-web.js"
+    }
+  },
+  "files": [
+    "binaries/**",
+    "src/entrypoint/**",
+    "src/generated/**",
+    "src/wrapAssembly.js",
+    "src/wrapAssembly.d.ts"
   ]
 }

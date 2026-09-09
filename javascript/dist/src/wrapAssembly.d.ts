@@ -1,0 +1,173 @@
+/**
+ * Copyright (c) Meta Platforms, Inc. and affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * @format
+ */
+import { Unit, Direction } from './generated/YGEnums.ts';
+import YGEnums from './generated/YGEnums.ts';
+import type { Align, BoxSizing, Display, Edge, Errata, ExperimentalFeature, FlexDirection, Gutter, Justify, MeasureMode, Overflow, PositionType, Wrap } from './generated/YGEnums.ts';
+type Layout = {
+    left: number;
+    right: number;
+    top: number;
+    bottom: number;
+    width: number;
+    height: number;
+    hadOverflow: boolean;
+};
+type Size = {
+    width: number;
+    height: number;
+};
+type Value = {
+    unit: Unit;
+    value: number;
+};
+export type Config = {
+    isExperimentalFeatureEnabled(feature: ExperimentalFeature): boolean;
+    setExperimentalFeatureEnabled(feature: ExperimentalFeature, enabled: boolean): void;
+    setPointScaleFactor(factor: number): void;
+    getErrata(): Errata;
+    setErrata(errata: Errata): void;
+    useWebDefaults(): boolean;
+    setUseWebDefaults(useWebDefaults: boolean): void;
+};
+export type DirtiedFunction = (node: Node) => void;
+export type MeasureFunction = (width: number, widthMode: MeasureMode, height: number, heightMode: MeasureMode) => Size;
+export type Node = {
+    calculateLayout(width: number | 'auto' | undefined, height: number | 'auto' | undefined, direction?: Direction): void;
+    copyStyle(node: Node): void;
+    getAlignContent(): Align;
+    getAlignItems(): Align;
+    getAlignSelf(): Align;
+    getAspectRatio(): number;
+    getBorder(edge: Edge): number;
+    getChild(index: number): Node;
+    getChildCount(): number;
+    getComputedBorder(edge: Edge): number;
+    getComputedBottom(): number;
+    getComputedHadOverflow(): boolean;
+    getComputedHeight(): number;
+    getComputedLayout(): Layout;
+    getComputedLeft(): number;
+    getComputedMargin(edge: Edge): number;
+    getComputedPadding(edge: Edge): number;
+    getComputedRight(): number;
+    getComputedTop(): number;
+    getComputedWidth(): number;
+    getDirection(): Direction;
+    getDisplay(): Display;
+    getFlexBasis(): Value;
+    getFlexDirection(): FlexDirection;
+    getFlexGrow(): number;
+    getFlexShrink(): number;
+    getFlexWrap(): Wrap;
+    getHeight(): Value;
+    getJustifyContent(): Justify;
+    getGap(gutter: Gutter): Value;
+    getMargin(edge: Edge): Value;
+    getMaxHeight(): Value;
+    getMaxWidth(): Value;
+    getMinHeight(): Value;
+    getMinWidth(): Value;
+    getOverflow(): Overflow;
+    getPadding(edge: Edge): Value;
+    getParent(): Node | null;
+    getPosition(edge: Edge): Value;
+    getPositionType(): PositionType;
+    getBoxSizing(): BoxSizing;
+    getWidth(): Value;
+    insertChild(child: Node, index: number): void;
+    isDirty(): boolean;
+    isReferenceBaseline(): boolean;
+    markDirty(): void;
+    hasNewLayout(): boolean;
+    markLayoutSeen(): void;
+    removeChild(child: Node): void;
+    reset(): void;
+    setAlignContent(alignContent: Align): void;
+    setAlignItems(alignItems: Align): void;
+    setAlignSelf(alignSelf: Align): void;
+    setAspectRatio(aspectRatio: number | undefined): void;
+    setBorder(edge: Edge, borderWidth: number | undefined): void;
+    setDirection(direction: Direction): void;
+    setDisplay(display: Display): void;
+    setFlex(flex: number | undefined): void;
+    setFlexBasis(flexBasis: number | 'auto' | 'fit-content' | 'max-content' | 'stretch' | `${number}%` | undefined): void;
+    setFlexBasisPercent(flexBasis: number | undefined): void;
+    setFlexBasisAuto(): void;
+    setFlexBasisFitContent(): void;
+    setFlexBasisMaxContent(): void;
+    setFlexBasisStretch(): void;
+    setFlexDirection(flexDirection: FlexDirection): void;
+    setFlexGrow(flexGrow: number | undefined): void;
+    setFlexShrink(flexShrink: number | undefined): void;
+    setFlexWrap(flexWrap: Wrap): void;
+    setHeight(height: number | 'auto' | 'fit-content' | 'max-content' | 'stretch' | `${number}%` | undefined): void;
+    setIsReferenceBaseline(isReferenceBaseline: boolean): void;
+    setHeightAuto(): void;
+    setHeightFitContent(): void;
+    setHeightMaxContent(): void;
+    setHeightPercent(height: number | undefined): void;
+    setHeightStretch(): void;
+    setJustifyContent(justifyContent: Justify): void;
+    setGap(gutter: Gutter, gapLength: number | `${number}%` | undefined): Value;
+    setGapPercent(gutter: Gutter, gapLength: number | undefined): Value;
+    setMargin(edge: Edge, margin: number | 'auto' | `${number}%` | undefined): void;
+    setMarginAuto(edge: Edge): void;
+    setMarginPercent(edge: Edge, margin: number | undefined): void;
+    setMaxHeight(maxHeight: number | 'fit-content' | 'max-content' | 'stretch' | `${number}%` | undefined): void;
+    setMaxHeightFitContent(): void;
+    setMaxHeightMaxContent(): void;
+    setMaxHeightPercent(maxHeight: number | undefined): void;
+    setMaxHeightStretch(): void;
+    setMaxWidth(maxWidth: number | 'fit-content' | 'max-content' | 'stretch' | `${number}%` | undefined): void;
+    setMaxWidthFitContent(): void;
+    setMaxWidthMaxContent(): void;
+    setMaxWidthPercent(maxWidth: number | undefined): void;
+    setMaxWidthStretch(): void;
+    setDirtiedFunc(dirtiedFunc: DirtiedFunction | null): void;
+    setMeasureFunc(measureFunc: MeasureFunction | null): void;
+    setMinHeight(minHeight: number | 'fit-content' | 'max-content' | 'stretch' | `${number}%` | undefined): void;
+    setMinHeightFitContent(): void;
+    setMinHeightMaxContent(): void;
+    setMinHeightPercent(minHeight: number | undefined): void;
+    setMinHeightStretch(): void;
+    setMinWidth(minWidth: number | 'fit-content' | 'max-content' | 'stretch' | `${number}%` | undefined): void;
+    setMinWidthFitContent(): void;
+    setMinWidthMaxContent(): void;
+    setMinWidthPercent(minWidth: number | undefined): void;
+    setMinWidthStretch(): void;
+    setOverflow(overflow: Overflow): void;
+    setPadding(edge: Edge, padding: number | `${number}%` | undefined): void;
+    setPaddingPercent(edge: Edge, padding: number | undefined): void;
+    setPosition(edge: Edge, position: number | `${number}%` | undefined): void;
+    setPositionPercent(edge: Edge, position: number | undefined): void;
+    setPositionType(positionType: PositionType): void;
+    setPositionAuto(edge: Edge): void;
+    setBoxSizing(boxSizing: BoxSizing): void;
+    setWidth(width: number | 'auto' | 'fit-content' | 'max-content' | 'stretch' | `${number}%` | undefined): void;
+    setWidthAuto(): void;
+    setWidthFitContent(): void;
+    setWidthMaxContent(): void;
+    setWidthPercent(width: number | undefined): void;
+    setWidthStretch(): void;
+    unsetDirtiedFunc(): void;
+    unsetMeasureFunc(): void;
+    setAlwaysFormsContainingBlock(alwaysFormsContainingBlock: boolean): void;
+};
+export type Yoga = {
+    Config: {
+        create(): Config;
+    };
+    Node: {
+        create(config?: Config): Node;
+        createDefault(): Node;
+        createWithConfig(config: Config): Node;
+    };
+} & typeof YGEnums;
+export default function wrapAssembly(lib: any): Yoga;
+export {};

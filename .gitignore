@@ -72,3 +72,9 @@ local.properties
 
 # Docusarus build
 .docusaurus
+
+node_modules/
+javascript/.emsdk/
+javascript/build/
+javascript/dist/
+

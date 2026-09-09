@@ -2260,6 +2260,19 @@ static void YGDistributeFreeSpaceFirstPass(
   float boundMainSize = 0;
   float deltaFreeSpace = 0;
 
+  // The first pass performs a single distribution of the free space over all
+  // of the line's flexible items, so every item's tentative size must be
+  // computed against the *original* totals.  The totals are still reduced as
+  // items get frozen below (so the second pass can redistribute), but those
+  // reduced values must not feed back into the fair-share calculation for the
+  // remaining items: doing so inflates their tentative size and can freeze
+  // items that should still be able to grow/shrink (see
+  // https://github.com/react/yoga/issues/2006).
+  const float originalTotalFlexGrowFactors =
+      collectedFlexItemsValues.totalFlexGrowFactors;
+  const float originalTotalFlexShrinkScaledFactors =
+      collectedFlexItemsValues.totalFlexShrinkScaledFactors;
+
   for (auto currentRelativeChild : collectedFlexItemsValues.relativeChildren) {
     float childFlexBasis =
         YGNodeBoundAxisWithinMinAndMax(
@@ -2278,8 +2291,7 @@ static void YGDistributeFreeSpaceFirstPass(
           flexShrinkScaledFactor != 0) {
         baseMainSize = childFlexBasis +
             collectedFlexItemsValues.remainingFreeSpace /
-                collectedFlexItemsValues.totalFlexShrinkScaledFactors *
-                flexShrinkScaledFactor;
+                originalTotalFlexShrinkScaledFactors * flexShrinkScaledFactor;
         boundMainSize = YGNodeBoundAxis(
             currentRelativeChild,
             mainAxis,
@@ -2308,7 +2320,7 @@ static void YGDistributeFreeSpaceFirstPass(
       if (!YGFloatIsUndefined(flexGrowFactor) && flexGrowFactor != 0) {
         baseMainSize = childFlexBasis +
             collectedFlexItemsValues.remainingFreeSpace /
-                collectedFlexItemsValues.totalFlexGrowFactors * flexGrowFactor;
+                originalTotalFlexGrowFactors * flexGrowFactor;
         boundMainSize = YGNodeBoundAxis(
             currentRelativeChild,
             mainAxis,
